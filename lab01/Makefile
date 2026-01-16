@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-std=c11 -Wall -Wextra -Werror -O2 -I./src
+CC ?= cc
+CFLAGS = -std=c11 -Wall -Wextra -O2
 
 TEST_BIN=bin/test_two_sum
 
