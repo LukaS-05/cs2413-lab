@@ -1,4 +1,5 @@
 #include "two_sum.h"
+#include <stdio.h>
 
 int two_sum(const int* nums, int n, int target, int* out_i, int* out_j) {
 
@@ -7,7 +8,23 @@ int two_sum(const int* nums, int n, int target, int* out_i, int* out_j) {
     //  - find i < j such that nums[i] + nums[j] == target
     //  - store indices in *out_i and *out_j
     //  - return 1 if found; otherwise return 0
+    if (n < 2)
+    {
+        return 0;
+    }
 
+    for (int i = 1; i < n; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            if (nums[i] + nums[j] == target)
+            {
+                *out_i = j;
+                *out_j = i;
+                return 1;
+            }
+        }
+    }
     return 0;
 }
 
