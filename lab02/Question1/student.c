@@ -28,6 +28,16 @@
 #include <stdbool.h>
 #include <stddef.h>  // size_t
 #include <string.h>  // strlen
+#include <stdlib.h>
+
+struct Node
+{
+    char val;
+    struct Node* next;
+};
+
+struct Node* push(struct Node* head, char val);
+char pop(struct Node* head, struct Node** head_ptr);
 
 bool isValid(const char *s) {
     // TODO: Implement using a stack.
@@ -54,6 +64,56 @@ bool isValid(const char *s) {
     // Note:
     // - Input contains only bracket characters, per the prompt.
 
-    (void)s; // remove after implementing
-    return false; // placeholder
+    if (strlen(s) % 2 != 0)
+    {
+        return false;
+    }
+
+    struct Node* head = (struct Node*)malloc(sizeof(struct Node));
+    head->val = *s;
+    head->next = NULL;
+
+    if (head->val == '}' || head->val == ')' || head->val == ']')
+    {
+        return false;
+    }
+
+    for (int i = 1; i < (int)strlen(s); i++)
+    {
+        if (*(s+i) == '{' || *(s+i) == '(' || *(s+i) == '[')
+        {
+            head = push(head, *(s+i));
+        }
+        else
+        {
+            char c = pop(head, &head);
+            if (!((*(s+i) == '}' && c == '{') || (*(s+i) == ']' && c == '[') || (*(s+i) == ')' && c == '(')))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+struct Node* push(struct Node* head, char val)
+{
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->val = val;
+    new_node->next = head;
+    return new_node;
+}
+
+char pop(struct Node* head, struct Node** head_ptr)
+{
+    if (head == NULL)
+    {
+        return 0;
+    }
+    char temp_val = head->val;
+    struct Node* temp_ptr = head->next;
+    free(head);
+    *head_ptr = temp_ptr;
+    return temp_val;
 }
