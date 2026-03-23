@@ -48,8 +48,32 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
+bool isMirror(struct TreeNode* lSub, struct TreeNode* rSub)
+{
 
+  if (lSub == NULL && rSub == NULL)
+  {
+    return true;
+  }
 
-bool isSymmetric(struct TreeNode* root) {
+  if (lSub == NULL || rSub == NULL || lSub->val != rSub->val)
+  {
+    return false;
+  }
+
+  return isMirror(lSub->left, rSub->right) && isMirror(lSub->right, rSub->left);
+
+}
+
+bool isSymmetric(struct TreeNode* root) 
+{
   // TODO: implement
+
+  if (root == NULL)
+  {
+    return true;
+  }
+
+  return isMirror(root->left, root->right);
+
 }
