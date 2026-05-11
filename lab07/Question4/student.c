@@ -21,6 +21,23 @@ Notes:
 
 void insertionSort(int arr[], int size) {
     // TODO: implement insertion sort
-    (void)arr;
-    (void)size;
+
+    if (size < 2)
+    {
+        return;
+    }
+
+    for (int k = 1; k < size; k++)
+    {
+        int temp = arr[k];
+        int j = k - 1;
+        
+        while (j >= 0 && temp < arr[j])
+        {
+            arr[j+1] = arr[j];
+            j--;
+        }
+
+        arr[j+1] = temp;
+    }
 }
