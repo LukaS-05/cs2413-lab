@@ -28,15 +28,46 @@ Notes:
 - You may write a helper function such as swap(...) if you want.
 */
 
+void swap(int* i, int* j)
+{
+    int t = *i;
+    *i = *j;
+    *j = t;
+}
+
 void bubbleSort(int arr[], int size) {
     // TODO: implement basic bubble sort
-    (void)arr;
-    (void)size;
+    for (int i  = 0; i < size-1; i++)
+    {
+        for (int j = 0; j < size-1-i; j++)
+        {
+            if (arr[j] > arr[j+1])
+            {
+                swap(arr+j, arr+j+1);
+            }
+        }
+    }
 }
 
 void bubbleSortOptimized(int arr[], int size) {
     // TODO: implement optimized bubble sort with early stopping
-    (void)arr;
-    (void)size;
+    int sorted = 1;
+
+    for (int i  = 0; i < size-1; i++)
+    {
+        sorted = 1;
+        for (int j = 0; j < size-1-i; j++)
+        {
+            if (arr[j] > arr[j+1])
+            {
+                swap(arr+j, arr+j+1);
+                sorted = 0;
+            }
+        }
+        if (sorted == 1)
+        {
+            return;
+        }
+    }
 }
 
